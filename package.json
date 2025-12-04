@@ -10,6 +10,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -27,6 +28,20 @@
     "react": "19.2.0",
     "react-day-picker": "^9.11.3",
     "react-dom": "19.2.0",
+=======
+    "@radix-ui/react-avatar": "^1.1.11",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@react-icons/all-files": "^4.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.554.0",
+    "next": "16.0.3",
+    "next-themes": "^0.4.6",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-icons": "^5.5.0",
+>>>>>>> 5b153432a8cf93555228965e03da156b44a753a8
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
@@ -37,7 +52,10 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "tailwindcss": "^4",
+<<<<<<< HEAD
     "tailwindcss-animate": "^1.0.7",
+=======
+>>>>>>> 5b153432a8cf93555228965e03da156b44a753a8
     "typescript": "^5"
   }
 }

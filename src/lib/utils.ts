@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+<<<<<<< HEAD
 
 interface FetchOptions extends RequestInit {
   token?: string | null; // Allow token to be string, null, or undefined
@@ -55,3 +56,5 @@ export const authenticatedFormFetch = async (
   }
   return res.json();
 };
+=======
+>>>>>>> 5b153432a8cf93555228965e03da156b44a753a8
