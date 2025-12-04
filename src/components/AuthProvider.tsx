@@ -1,6 +1,5 @@
 "use client";
-
-import React, {
+import {
   createContext,
   useContext,
   useEffect,
@@ -8,55 +7,47 @@ import React, {
   ReactNode,
 } from "react";
 
-// ✅ Define the shape of your context
 interface AuthContextType {
   token: string | null;
   login: (newToken: string) => void;
   logout: () => void;
+  isLoading: boolean;
 }
 
-// ✅ Context with proper type
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType>({
+  token: null,
+  login: () => {},
+  logout: () => {},
+  isLoading: true, // Default to true initially
+});
 
-// ✅ Hook to use the context
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
-
-// ✅ Props type for the provider
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-// ✅ AuthProvider component
-export default function AuthProvider({ children }: AuthProviderProps) {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // Renamed `loading` to `isLoading`
 
-  // Load token from localStorage on mount
   useEffect(() => {
-    const savedToken = localStorage.getItem("accessToken");
-    if (savedToken) setToken(savedToken);
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) setToken(storedToken);
+    setIsLoading(false); // Set isLoading to false after checking local storage
   }, []);
 
-  // Login function
   const login = (newToken: string) => {
-    localStorage.setItem("accessToken", newToken);
+    localStorage.setItem("token", newToken);
     setToken(newToken);
   };
 
-  // Logout function
   const logout = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem("token");
     setToken(null);
   };
 
+  // No longer return null here, let components handle isLoading state
+
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ token, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
+
+export const useAuth = () => useContext(AuthContext);

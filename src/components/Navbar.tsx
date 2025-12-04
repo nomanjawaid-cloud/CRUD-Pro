@@ -1,84 +1,106 @@
+// "use client";
 // import Link from "next/link";
-// import { LogOut } from "lucide-react";
+// import { useRouter } from "next/navigation";
+// import { useAuth } from "./AuthProvider";
+// import { Button } from "./ui/button";
+// import { Menu } from "lucide-react";
 
-// function Navbar() {
+// export default function Navbar() {
+//   const { token, logout } = useAuth();
+//   const router = useRouter();
+
+//   if (!token) return null; // render nothing if no token
+
 //   return (
-//     <nav className="w-full bg-gradient-to-r from-blue-900 to-blue-700 text-white px-6 py-4 shadow-md flex justify-between items-center">
-//       {/* Logo */}{" "}
-//       <Link href="/" className="text-2xl font-extrabold tracking-wide">
-//         CRUD<span className="text-orange-400 text-3xl"> Pro</span>{" "}
+//     <nav className="w-full bg-blue-400 text-white px-6 py-4 flex justify-between">
+//       <div className="absolute top-6 left-6 z-50">
+//         <Button
+//           className="
+//       bg-orange-500
+//       hover:bg-orange-600
+//       text-white
+//       font-semibold
+//       px-4
+//       py-2
+//       rounded-xl
+//       shadow-md
+//       border border-orange-300
+//       transition-all
+//       flex items-center gap-2
+//     "
+//         >
+//           <Menu className="w-6 h-6" />
+//           Menu
+//         </Button>
+//       </div>
+
+//       <Link href="/dashboard" className="text-xl font-bold ml-24">
+//         <span className="text-white font-bold text-2xl">CRUD</span>{" "}
+//         <span className="text-orange-500 font-extrabold text-2xl">-PRO</span>
 //       </Link>
-//       <div className="flex items-center gap-4">
-//         <Link
-//           href="/dashboard"
-//           className="bg-blue-500 px-4 py-2 rounded hover:bg-orange-500 transition flex items-center gap-2"
+//       <div className="flex gap-4 ">
+//         <Link href="/dashboard">Home</Link>
+//         <Link href="/users">Users</Link>
+//         <Link href="/posts">Posts</Link>
+//         <button
+//           onClick={() => {
+//             logout();
+//             router.push("/auth/login");
+//           }}
+//           className="bg-red-500 px-3 py-1 rounded"
 //         >
-//           Dashboard
-//         </Link>
-//         <Link
-//           href="/users"
-//           className="bg-blue-500 px-4 py-2 rounded hover:bg-orange-500 transition flex items-center gap-2"
-//         >
-//           Users
-//         </Link>
-//         <Link
-//           href="/posts"
-//           className="bg-blue-500 px-4 py-2 rounded hover:bg-orange-500 transition flex items-center gap-2"
-//         >
-//           Post
-//         </Link>
-//         {/* LogOut Button */}
-//         <Link
-//           href="/auth/logout"
-//           className="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition flex items-center gap-2"
-//         >
-//           <LogOut className="w-4 h-4" />
-//           LogOut
-//         </Link>
+//           Logout
+//         </button>
 //       </div>
 //     </nav>
 //   );
 // }
-// export default Navbar;
 
 "use client";
-
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "./AuthProvider";
+import { Button } from "./ui/button";
+import { Menu } from "lucide-react";
 
 export default function Navbar() {
   const { token, logout } = useAuth();
+  const router = useRouter();
 
-  // If no token → Pre Login Navbar
-  if (!token) {
-    return (
-      <nav className="w-full bg-blue-800 text-white px-6 py-4 flex justify-between">
-        <Link href="/" className="text-2xl font-extrabold tracking-wide">
-          CRUD<span className="text-orange-400 text-3xl"> Pro</span>{" "}
-        </Link>
-        <div className="flex gap-4">
-        
-          <Link href="/auth/login">Login</Link>{" "}
-          <Link href="/auth/register">Register</Link>{" "}
-        </div>{" "}
-      </nav>
-    );
-  }
+  if (!token) return null; // render nothing if no token
 
-  // If token exists → After Login Navbar
   return (
-    <nav className="w-full bg-green-700 text-white px-6 py-4 flex justify-between">
-      
-      <Link href="/dashboard" 
-      className="text-xl font-bold">
-        Dashboard
-      </Link>
-      <div className="flex gap-4">
-        <Link href="/users"
-        >Users
+    <nav className="w-full bg-blue-400 text-white px-6 py-4 flex justify-between items-center">
+      {/* Left side: Menu button */}
+      <div className="flex items-center gap-6">
+        {/* Logo */}
+        <Link href="/dashboard" className="text-xl font-bold  ml-26">
+          <span className="text-white font-bold text-4xl">CRUD</span>{" "}
+          <span className="text-orange-500 font-extrabold text-4xl"> -PRO</span>
         </Link>
+      </div>
 
-        <button onClick={logout} className="bg-red-500 px-3 py-1 rounded">
+      {/* Right side: Navigation links */}
+      <div className="flex gap-6 items-center">
+        <Link
+          href="/dashboard"
+          className="hover:text-orange-200 transition-colors"
+        >
+          Home
+        </Link>
+        <Link href="/users" className="hover:text-orange-200 transition-colors">
+          Users
+        </Link>
+        <Link href="/posts" className="hover:text-orange-200 transition-colors">
+          Posts
+        </Link>
+        <button
+          onClick={() => {
+            logout();
+            router.push("/auth/login");
+          }}
+          className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-colors font-medium"
+        >
           Logout
         </button>
       </div>
